@@ -122,7 +122,7 @@ export default function Layout() {
 
       {/* Main Content */}
       <div className="lg:ml-64 p-8">
-        <Outlet />
+        <Outlet context={{ searchTerm, setSearchTerm }} />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Edit2, Trash2, Plus } from "lucide-react";
 import { useEmployees } from "../hooks/useEmployees";
 import EmployeeForm from "../components/EmployeeForm";
+import { useOutletContext } from "react-router-dom";
 
 function NoResultsMessage() {
   return (
@@ -16,6 +17,21 @@ export default function TableView() {
     useEmployees();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingEmployee, setEditingEmployee] = useState(null);
+  const { searchTerm } = useOutletContext();
+
+  const filteredEmployees = employees.filter((employee) => {
+    const trimmedSearch = searchTerm.trim().toLowerCase();
+    if (!trimmedSearch) return true;
+
+    return (
+      employee.name.toLowerCase().includes(trimmedSearch) ||
+      employee.email.toLowerCase().includes(trimmedSearch) ||
+      (employee.phone &&
+        employee.phone.toLowerCase().includes(trimmedSearch)) ||
+      (employee.address &&
+        employee.address.toLowerCase().includes(trimmedSearch))
+    );
+  });
 
   const handleEdit = (employee) => {
     setEditingEmployee(employee);
@@ -34,7 +50,7 @@ export default function TableView() {
 
   return (
     <div className="p-8">
-      {employees.length === 0 ? (
+      {filteredEmployees.length === 0 ? (
         <NoResultsMessage />
       ) : (
         <>
@@ -87,7 +103,7 @@ export default function TableView() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {employees.map((employee) => (
+                  {filteredEmployees.map((employee) => (
                     <tr
                       key={employee.id}
                       className="transition-colors duration-200 hover:bg-gray-50"

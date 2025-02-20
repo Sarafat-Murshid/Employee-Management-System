@@ -7,6 +7,8 @@ export function useEmployees() {
     const savedEmployees = localStorage.getItem('employees');
     return savedEmployees ? JSON.parse(savedEmployees) : employeeData.employees;
   });
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   // Save to localStorage whenever employees change
   useEffect(() => {
@@ -31,10 +33,21 @@ export function useEmployees() {
     setEmployees(employees.filter(emp => emp.id !== id));
   };
 
+  // Filter employees based on search term (name or email)
+  const filteredEmployees = employees.filter(employee => {
+    const searchLower = searchTerm.toLowerCase();
+    return employee.name.toLowerCase().includes(searchLower) ||
+           employee.email.toLowerCase().includes(searchLower);
+  });
+
   return {
-    employees,
+    employees: filteredEmployees,
+    allEmployees: employees,
     addEmployee,
     updateEmployee,
-    deleteEmployee
+    deleteEmployee,
+    searchTerm,
+    setSearchTerm
   };
+
 }

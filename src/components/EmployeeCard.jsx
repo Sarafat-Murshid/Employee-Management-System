@@ -1,9 +1,9 @@
-import React from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import React from "react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function EmployeeCard({ employee }) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg">
       <div className="aspect-square overflow-hidden">
         <img
           src={employee.profilePicture}
@@ -12,9 +12,11 @@ export default function EmployeeCard({ employee }) {
         />
       </div>
       <div className="p-4">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">{employee.name}</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2 transition-colors duration-200 hover:text-blue-600">
+          {employee.name}
+        </h3>
         <div className="space-y-2">
-          <div className="flex items-center text-gray-600">
+          <div className="flex items-center text-gray-600 transition-colors duration-200 hover:text-blue-600">
             <Mail className="h-4 w-4 mr-2" />
             <span className="text-sm">{employee.email}</span>
           </div>

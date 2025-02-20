@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Edit2, Trash2, Plus } from 'lucide-react';
-import { useEmployees } from '../hooks/useEmployees';
-import EmployeeForm from '../components/EmployeeForm';
+import React, { useState } from "react";
+import { Edit2, Trash2, Plus } from "lucide-react";
+import { useEmployees } from "../hooks/useEmployees";
+import EmployeeForm from "../components/EmployeeForm";
 
 export default function TableView() {
-  const { employees, addEmployee, updateEmployee, deleteEmployee } = useEmployees();
+  const { employees, addEmployee, updateEmployee, deleteEmployee } =
+    useEmployees();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingEmployee, setEditingEmployee] = useState(null);
 
@@ -40,7 +41,7 @@ export default function TableView() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-semibold mb-4">
-              {editingEmployee ? 'Edit Employee' : 'Add Employee'}
+              {editingEmployee ? "Edit Employee" : "Add Employee"}
             </h2>
             <EmployeeForm
               onSubmit={handleSubmit}
@@ -75,7 +76,10 @@ export default function TableView() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {employees.map((employee) => (
-                <tr key={employee.id}>
+                <tr
+                  key={employee.id}
+                  className="transition-colors duration-200 hover:bg-gray-50"
+                >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="h-10 w-10 flex-shrink-0">
@@ -86,18 +90,24 @@ export default function TableView() {
                         />
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-gray-900 transition-colors duration-200 hover:text-blue-600">
                           {employee.name}
                         </div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{employee.email}</div>
-                    <div className="text-sm text-gray-500">{employee.phone}</div>
+                    <div className="text-sm text-gray-900 transition-colors duration-200 hover:text-blue-600">
+                      {employee.email}
+                    </div>
+                    <div className="text-sm text-gray-500 transition-colors duration-200 hover:text-blue-600">
+                      {employee.phone}
+                    </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">{employee.address}</div>
+                    <div className="text-sm text-gray-900 transition-colors duration-200 hover:text-blue-600">
+                      {employee.address}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button
